@@ -1,7 +1,7 @@
 
 import { logAll, IRunListItem } from './utils';
 import { interval, of } from 'rxjs';
-import { take, map, endWith} from 'rxjs/operators';
+import { take, map, endWith, skip, mergeAll} from 'rxjs/operators';
 
 /**
  * Операторы фильтрации

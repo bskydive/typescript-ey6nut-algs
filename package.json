@@ -1,8 +1,29 @@
 {
-  "name": "typescript",
+  "name": "typescript-algs",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "b": "tsc --build tsconfig.json && node dist/out-tsc/index.js"
+  },
   "dependencies": {
-    "rxjs": "^6.5.5"
+    "@angular/compiler": "^10.0.1",
+    "@angular/core": "^10.0.1",
+    "rxjs": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@typescript-eslint/parser": "^3.5.0",
+    "codelyzer": "^5.1.0",
+    "eslint": "^7.3.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "rxjs-tslint-rules": "^4.24.3",
+    "ts-node": "^8.3.0",
+    "tslint": "^6.1.2",
+    "tslint-angular": "^3.0.2",
+    "typescript": "^3.5.3"
   }
 }
