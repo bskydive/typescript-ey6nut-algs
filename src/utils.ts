@@ -28,3 +28,9 @@ export interface IRunListItem {
 	operationTypeList?: TOperationItem[];
 	result?: any;
 }
+
+
+export interface ITestData {
+	params: any[];
+	result: any[];
+}

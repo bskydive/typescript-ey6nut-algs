@@ -37,7 +37,7 @@ operatorList.push(...filteringOperatorList.map(item => item.observable$));
 
 
 // небольшая проверка, что все модули собраны
-logAll(`Библиотека операторов RxJs. Итого примеров: ${operatorList.length} шт.`);
+logAll(`Библиотека алгоритмов. Итого примеров: ${operatorList.length} шт.`);
 
 /**
  * Запуск операторов для автоматической проверки
