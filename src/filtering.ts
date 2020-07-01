@@ -1,7 +1,7 @@
 
-import { logAll, IRunListItem, ITestData } from './utils';
+import { logAll, IRunListItem, ITestData, randomNumber } from './utils';
 import { interval, of } from 'rxjs';
-import { take, map, endWith, skip, mergeAll, distinct } from 'rxjs/operators';
+import { take, map, endWith, skip, mergeAll, distinct, switchMap, mergeMap, withLatestFrom, tap } from 'rxjs/operators';
 
 /**
  * Операторы фильтрации
@@ -34,10 +34,17 @@ const symDiffTestData: ITestData[] = [
 ];
 
 /**
+ * Сигнальный поток, каждые 2 секунды
+ */
+const symDiffSignal$ = interval(2000).pipe(
+	take(1)
+);
+
+/**
  * 10 случайных чисел с интервалом 10мсек
  */
 const symDiffSrc1$ = interval(10).pipe(
-	map(item => crypto.getRandomValues(new Int32Array(1))[0]),
+	map(item => randomNumber()),
 	distinct(),
 	take(10)
 );
@@ -46,12 +53,33 @@ const symDiffSrc1$ = interval(10).pipe(
  * Пять чисел из первого потока
  */
 const symDiffSrc2$ = symDiffSrc1$.pipe(skip(3), take(5));
+const list1: number[] = [];
+const list2: number[] = [];
+// const listsFilteredUniq: { list1: number[], list2: number[] } = { list1: [], list2: [] };
+const isUniqInTwoArrays = (params: { itemList1: number[], itemList2: number[], value: number }): boolean => {
+	return !(params.itemList1.includes(params.value) && params.itemList2.includes(params.value));
+}
 
-const symDiffTest$ = of(symDiffSrc1$, symDiffSrc2$).pipe(
-	mergeAll()
+/**
+ * Проверка работы
+ */
+const symDiffTest$ = symDiffSignal$.pipe(
+	withLatestFrom(symDiffSrc1$, symDiffSrc2$),
+	// tap(logAll),
+	map(([signal, item1, item2]: [number, number, number]) => {
+		logAll(item1, item2);
+		if (
+			item1 !== item2 &&
+			isUniqInTwoArrays({ itemList1: list1, itemList2: list2, value: item1 }) &&
+			isUniqInTwoArrays({ itemList1: list1, itemList2: list2, value: item2 })
+		) {
+			list1.push(item1);
+			list2.push(item2);
+		}
+	})
 )
 
-//symDiff$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
+symDiffTest$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
 filteringOperatorList.push({ observable$: symDiffTest$ });
 
 
@@ -63,8 +91,8 @@ filteringOperatorList.push({ observable$: symDiffTest$ });
 /**
  * skip
  * скрывает указанное количество значений
-
-
+	
+	
 получил:  0-1
 получил:  101-1
 получил:  202-1

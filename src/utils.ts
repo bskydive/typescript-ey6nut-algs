@@ -1,4 +1,6 @@
 import { Observable } from 'rxjs';
+import { randomBytes } from 'crypto';
+// import * as crypto from 'crypto';
 
 /**
  * Интерфейсы и служебные функции
@@ -13,6 +15,16 @@ import { Observable } from 'rxjs';
  */
 export function logAll(...values) {
 	console.log(...values); // ...arguments
+}
+
+export function randomNumber() {
+	if (typeof window === 'object') {
+		// run from browser
+		return window.crypto.getRandomValues(new Int16Array(1))[0]
+	} else {
+		// run from console
+		return randomBytes(16).readInt16LE(0)
+	}
 }
 
 export type TTypeItem = 'observable' | 'observable' | 'primitive' | 'function' | 'object';
