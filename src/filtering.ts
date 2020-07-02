@@ -33,6 +33,38 @@ const symDiffTestData: ITestData[] = [
 	{ params: [[3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]], result: [1, 2, 4, 5, 6, 7, 8, 9] }
 ];
 
+const isUniqInTwoArrays = (params: { itemList1: number[], itemList2: number[], value: number }): boolean => {
+	return !(params.itemList1.includes(params.value) && params.itemList2.includes(params.value));
+}
+
+const filterUniqInAllArrays = (...itemLists: number[]): number[][] => {
+let itemListsIndex = 0;
+
+	for (let index = 0; index < )
+	if (
+		item1 !== item2 &&
+		isUniqInTwoArrays({ itemList1: list1, itemList2: list2, value: item1 }) &&
+		isUniqInTwoArrays({ itemList1: list1, itemList2: list2, value: item2 })
+	) {
+		list1.push(item1);
+		list2.push(item2);
+	}
+	return [];
+}
+
+/**
+ * Проверка работы
+ */
+const symDiffTest1$ = of(symDiffTestData).pipe(
+	// tap(logAll),
+	map((data: ITestData[]) => logAll(data))
+)
+
+// symDiffTest1$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
+filteringOperatorList.push({ observable$: symDiffTest1$ });
+
+//===================================================== поточная обработка
+
 /**
  * Сигнальный поток, каждые 2 секунды
  */
@@ -56,9 +88,7 @@ const symDiffSrc2$ = symDiffSrc1$.pipe(skip(3), take(5));
 const list1: number[] = [];
 const list2: number[] = [];
 // const listsFilteredUniq: { list1: number[], list2: number[] } = { list1: [], list2: [] };
-const isUniqInTwoArrays = (params: { itemList1: number[], itemList2: number[], value: number }): boolean => {
-	return !(params.itemList1.includes(params.value) && params.itemList2.includes(params.value));
-}
+
 
 /**
  * Проверка работы
@@ -79,7 +109,7 @@ const symDiffTest$ = symDiffSignal$.pipe(
 	})
 )
 
-symDiffTest$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
+// symDiffTest$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
 filteringOperatorList.push({ observable$: symDiffTest$ });
 
 
