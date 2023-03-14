@@ -43,6 +43,6 @@ export interface IRunListItem {
 
 
 export interface ITestData {
-	params: any[];
+	params: any[][];
 	result: any[];
 }
