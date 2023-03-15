@@ -93,7 +93,11 @@ function filterUniqInAllArrays(...itemLists: any[][]): number[] {
     let item1: number;
     let item2: number;
 
-    for (let itemListsIndex = 0; itemListsIndex < itemLists.length; itemListsIndex++) {
+    for (
+        let itemListsIndex = 0;
+        itemListsIndex < itemLists.length;
+        itemListsIndex++
+    ) {
         // item1 = arguments[itemListsIndex];
 
         if (
@@ -114,7 +118,7 @@ function filterUniqInAllArrays(...itemLists: any[][]): number[] {
         }
     }
     return [];
-};
+}
 
 /**
  * Проверка работы по всем наборам тестовых данных
@@ -122,7 +126,9 @@ function filterUniqInAllArrays(...itemLists: any[][]): number[] {
 const symDiffTest1$ = of(symDiffTestData).pipe(
     // tap(logAll),
     // map((data: ITestData[]) => logAll(data)),
-    map((data: ITestData[]) => data.map(item=>filterUniqInAllArrays(item.params)))
+    map((data: ITestData[]) =>
+        data.map((item) => filterUniqInAllArrays(item.params))
+    )
 );
 
 // symDiffTest1$.subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('symDiff поток закрыт'));
@@ -192,9 +198,9 @@ const result = [];
 
 /* Defining the function with two arguments array inputs */
 function difference(arr1, arr2) {
-    var i = 0,
-        j = 0;
-    var flag = false;
+    let i = 0;
+    let j = 0;
+    let flag = false;
 
     /* For array 1 */
     for (i = 0; i < arr1.length; i++) {
@@ -238,4 +244,5 @@ function difference(arr1, arr2) {
     }
     return result;
 }
+
 console.log(difference(a, b));
