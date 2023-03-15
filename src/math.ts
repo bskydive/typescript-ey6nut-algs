@@ -16,6 +16,7 @@ export const filteringOperatorList: IRunListItem[] = [];
 /**
  * Симметричная разница (△ or ⊕): чего нет в обоих наборах одновременно. Пример: A = {1, 2, 3}, B = {2, 3, 4}, A △ B = {1, 4}.
  * Это бинарная операция, только для 2 элементов. Для 3 элементов (A △ B △ C) нужны 2 операции. Пример: A △ B △ C = (A △ B) △ C = {1, 4} △ {2, 3} = {1, 2, 3, 4}.
+ * https://www.freecodecamp.org/learn/coding-interview-prep/algorithms/find-the-symmetric-difference
  */
 const symDiffTestData: ITestData[] = [
     {
@@ -207,8 +208,8 @@ function difference(arr1, arr2) {
         /* Reseting the flag and the other array iterator */
         j = 0;
         flag = false;
-        while (j != arr2.length) {
-            if (arr1[i] == arr2[j]) {
+        while (j !== arr2.length) {
+            if (arr1[i] === arr2[j]) {
                 flag = true;
                 break;
             }
@@ -246,3 +247,6 @@ function difference(arr1, arr2) {
 }
 
 console.log(difference(a, b));
+
+
+//  * [Функциональный JavaScript: пять способов нахождения среднего арифметического элементов массива и метод .reduce()](https://habr.com/ru/company/ruvds/blog/458030/)

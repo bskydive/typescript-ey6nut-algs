@@ -5,11 +5,11 @@
 // const appDiv: HTMLElement = document.getElementById('app');
 // appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;
 
-
-import { logAll } from './src/utils';
-import { filteringOperatorList } from './src/filtering';
-import { Observable } from 'rxjs';
-
+import { logAll } from "./src/utils";
+import { filteringOperatorList } from "./src/filtering";
+import { Observable, of } from "rxjs";
+import testSingleton from "./src/singleton/singleton";
+import { mergeAll } from "rxjs/operators";
 
 /**
  * ==========================================================
@@ -33,8 +33,8 @@ import { Observable } from 'rxjs';
  * Облегчение автоматизации запуска операторов
  */
 const operatorList: Observable<any>[] = [];
-operatorList.push(...filteringOperatorList.map(item => item.observable$));
-
+operatorList.push(...filteringOperatorList.map((item) => item.observable$));
+operatorList.push(of(Object.call(testSingleton())));
 
 // небольшая проверка, что все модули собраны
 logAll(`Библиотека алгоритмов. Итого примеров: ${operatorList.length} шт.`);
@@ -42,5 +42,13 @@ logAll(`Библиотека алгоритмов. Итого примеров: 
 /**
  * Запуск операторов для автоматической проверки
  */
-// of(...operatorList).pipe(mergeAll()).subscribe((item) => logAll('получил: ', item), err => logAll('ошибка:', err), () => logAll('поток закрыт'));
+of(...operatorList)
+    .pipe(mergeAll())
+    .subscribe(
+        (item) => logAll("получил: ", item),
+        (err) => logAll("ошибка:", err),
+        () => logAll("поток закрыт")
+    );
 
+// =========================================== Статика синхронно
+// testSingleton();

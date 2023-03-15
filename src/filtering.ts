@@ -5,6 +5,7 @@ import { IRunListItem } from './utils';
 
 /**
  * Операторы фильтрации
+ * TODO убрать заглушку, сделать новый код
  * 
  * для массового выполнения тестов, комментировать не надо, запуск управляется из index.ts
  * filteringOperatorList.push({ observable$: xxx$ });
