@@ -6,7 +6,7 @@
 	],
 	"include": [
 		"src/*.ts"
-	],
+, "src/patterns/patterns.create.ts", "src/patterns/pattern.ts"	],
 	"compilerOptions": {
 		"outDir": "./dist/out-tsc",
 		"declaration": false,
