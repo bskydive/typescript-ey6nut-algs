@@ -1,5 +1,5 @@
 // ================================ порождающие
-/** фабрика */
+/** =====================================  фабрика ============================== */
 interface IDoor {
     getWidth(): number;
     getHeight(): number;
@@ -186,8 +186,6 @@ class Burger {
         this.tomato = builder.tomato;
     }
 }
-
-// А затем добавим «строителя»:
 
 class BurgerBuilder {
     public size;
