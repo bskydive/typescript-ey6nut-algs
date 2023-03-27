@@ -1,32 +1,32 @@
 // ================================ порождающие
 /** =====================================  фабрика ============================== */
 interface IDoor {
-    getWidth(): number;
-    getHeight(): number;
+  getWidth(): number;
+  getHeight(): number;
 }
 
 class WoodenDoor implements IDoor {
-    protected width;
-    protected height;
+  protected width;
+  protected height;
 
-    constructor(width: number, height: number) {
-        this.width = width;
-        this.height = height;
-    }
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+  }
 
-    public getWidth(): number {
-        return this.width;
-    }
+  public getWidth(): number {
+    return this.width;
+  }
 
-    public getHeight(): number {
-        return this.height;
-    }
+  public getHeight(): number {
+    return this.height;
+  }
 }
 
 class DoorFactory {
-    public static makeDoor(width, height): IDoor {
-        return new WoodenDoor(width, height);
-    }
+  public static makeDoor(width, height): IDoor {
+    return new WoodenDoor(width, height);
+  }
 }
 
 const door = DoorFactory.makeDoor(100, 200);
@@ -36,44 +36,44 @@ console.log("Height: ", door.getHeight());
 /** ===================================== фабричный метод ============================== */
 
 interface Interviewer {
-    askQuestions();
+  askQuestions();
 }
 
 class Developer implements Interviewer {
-    public askQuestions() {
-        console.log("Asking about design patterns!");
-    }
+  public askQuestions() {
+    console.log("Asking about design patterns!");
+  }
 }
 
 class CommunityExecutive implements Interviewer {
-    public askQuestions() {
-        console.log("Asking about community building");
-    }
+  public askQuestions() {
+    console.log("Asking about community building");
+  }
 }
 
 abstract class HiringManager {
-    private interviewer;
-    // Фабричный метод
-    public abstract makeInterviewer(): Interviewer;
+  private interviewer;
+  // Фабричный метод
+  public abstract makeInterviewer(): Interviewer;
 
-    public takeInterview() {
-        this.interviewer = this.makeInterviewer();
-        this.interviewer.askQuestions();
-    }
+  public takeInterview() {
+    this.interviewer = this.makeInterviewer();
+    this.interviewer.askQuestions();
+  }
 }
 
 // Любой дочерний класс может расширять его и предоставлять нужного собеседующего:
 
 class DevelopmentManager extends HiringManager {
-    public makeInterviewer(): Interviewer {
-        return new Developer();
-    }
+  public makeInterviewer(): Interviewer {
+    return new Developer();
+  }
 }
 
 class MarketingManager extends HiringManager {
-    public makeInterviewer(): Interviewer {
-        return new CommunityExecutive();
-    }
+  public makeInterviewer(): Interviewer {
+    return new CommunityExecutive();
+  }
 }
 
 // Использование:
@@ -87,66 +87,66 @@ marketingManager.takeInterview(); // Output: Спрашивает о созда�
 /** ==================================== абстрактная фабрика =================================== */
 
 interface Door {
-    getDescription();
+  getDescription();
 }
 
 class WoodenDoor2 implements Door {
-    public getDescription() {
-        console.log("I am a wooden door");
-    }
+  public getDescription() {
+    console.log("I am a wooden door");
+  }
 }
 
 class IronDoor implements Door {
-    public getDescription() {
-        console.log("I am an iron door");
-    }
+  public getDescription() {
+    console.log("I am an iron door");
+  }
 }
 
 // Теперь нам нужны специалисты по установке каждого вида дверей.
 
 interface DoorFittingExpert {
-    getDescription();
+  getDescription();
 }
 
 class Welder implements DoorFittingExpert {
-    public getDescription() {
-        console.log("I can only fit iron doors");
-    }
+  public getDescription() {
+    console.log("I can only fit iron doors");
+  }
 }
 
 class Carpenter implements DoorFittingExpert {
-    public getDescription() {
-        console.log("I can only fit wooden doors");
-    }
+  public getDescription() {
+    console.log("I can only fit wooden doors");
+  }
 }
 
 // Мы получили абстрактную фабрику, которая позволяет создавать семейства объектов или взаимосвязанные объекты. То есть фабрика деревянных дверей создаст деревянную дверь и человека для её монтажа, фабрика стальных дверей — стальную дверь и соответствующего специалиста и т. д.
 
 interface DoorFactory {
-    makeDoor(): Door;
-    makeFittingExpert(): DoorFittingExpert;
+  makeDoor(): Door;
+  makeFittingExpert(): DoorFittingExpert;
 }
 
 // Фабрика деревянных дверей возвращает плотника и деревянную дверь
 class WoodenDoorFactory implements DoorFactory {
-    public makeDoor(): Door {
-        return new WoodenDoor2();
-    }
+  public makeDoor(): Door {
+    return new WoodenDoor2();
+  }
 
-    public makeFittingExpert(): DoorFittingExpert {
-        return new Carpenter();
-    }
+  public makeFittingExpert(): DoorFittingExpert {
+    return new Carpenter();
+  }
 }
 
 // Фабрика стальных дверей возвращает стальную дверь и сварщика
 class IronDoorFactory implements DoorFactory {
-    public makeDoor(): Door {
-        return new IronDoor();
-    }
+  public makeDoor(): Door {
+    return new IronDoor();
+  }
 
-    public makeFittingExpert(): DoorFittingExpert {
-        return new Welder();
-    }
+  public makeFittingExpert(): DoorFittingExpert {
+    return new Welder();
+  }
 }
 
 // Использование:
@@ -171,62 +171,126 @@ expert2.getDescription(); // Output: Я могу устанавливать то
 /** ================================================= строитель ============================== */
 
 class Burger {
-    protected size;
+  protected size;
 
-    protected cheese = false;
-    protected pepperoni = false;
-    protected lettuce = false;
-    protected tomato = false;
+  protected cheese = false;
+  protected pepperoni = false;
+  protected lettuce = false;
+  protected tomato = false;
 
-    constructor(builder: BurgerBuilder) {
-        this.size = builder.size;
-        this.cheese = builder.cheese;
-        this.pepperoni = builder.pepperoni;
-        this.lettuce = builder.lettuce;
-        this.tomato = builder.tomato;
-    }
+  constructor(builder: BurgerBuilder) {
+    this.size = builder.size;
+    this.cheese = builder.cheese;
+    this.pepperoni = builder.pepperoni;
+    this.lettuce = builder.lettuce;
+    this.tomato = builder.tomato;
+  }
 }
 
 class BurgerBuilder {
-    public size;
+  public size;
 
-    public cheese = false;
-    public pepperoni = false;
-    public lettuce = false;
-    public tomato = false;
+  public cheese = false;
+  public pepperoni = false;
+  public lettuce = false;
+  public tomato = false;
 
-    constructor(size: number) {
-        this.size = size;
-    }
+  constructor(size: number) {
+    this.size = size;
+  }
 
-    public addPepperoni() {
-        this.pepperoni = true;
-        return this;
-    }
+  public addPepperoni() {
+    this.pepperoni = true;
+    return this;
+  }
 
-    public addLettuce() {
-        this.lettuce = true;
-        return this;
-    }
+  public addLettuce() {
+    this.lettuce = true;
+    return this;
+  }
 
-    public addCheese() {
-        this.cheese = true;
-        return this;
-    }
+  public addCheese() {
+    this.cheese = true;
+    return this;
+  }
 
-    public addTomato() {
-        this.tomato = true;
-        return this;
-    }
+  public addTomato() {
+    this.tomato = true;
+    return this;
+  }
 
-    public build(): Burger {
-        return new Burger(this);
-    }
+  public build(): Burger {
+    return new Burger(this);
+  }
 }
 
 //Использование:
 const burger = new BurgerBuilder(14)
-    .addPepperoni()
-    .addLettuce()
-    .addTomato()
-    .build();
+  .addPepperoni()
+  .addLettuce()
+  .addTomato()
+  .build();
+
+/** ===================================== прототип ============================== */
+
+class Sheep {
+  protected name;
+  protected category;
+
+  constructor(name: string, category: string = "Mountain Sheep") {
+    this.name = name;
+    this.category = category;
+  }
+
+  public setName(name: string) {
+    this.name = name;
+  }
+
+  public getName() {
+    return this.name;
+  }
+
+  public setCategory(category: string) {
+    this.category = category;
+  }
+
+  public getCategory() {
+    return this.category;
+  }
+}
+
+const original = new Sheep("Jolly");
+console.log(original.getName()); // Джолли
+console.log(original.getCategory()); // Горная овечка
+
+// Клонируйте и модифицируйте, что нужно
+const cloned = JSON.parse(JSON.stringify(original));
+
+cloned.setName("Dolly");
+console.log(cloned.getName()); // Долли
+console.log(cloned.getCategory()); // Горная овечка
+
+/** ===================================== синглтон ============================== */
+
+// src/singleton/singleton.ts
+
+class ClassSingleton {
+  private static instance;
+
+  constructor(conString) {}
+
+  static getInstance(conString) {
+    if (!this.instance) {
+      this.instance = new ClassSingleton(conString);
+    }
+
+    return this.instance;
+  }
+}
+
+export default ClassSingleton;
+
+// class
+const instanceTwo = ClassSingleton.getInstance("mysqldb1");
+const instanceOne = ClassSingleton.getInstance("mysqldb1");
+console.log("Class singleton", instanceOne === instanceTwo);
