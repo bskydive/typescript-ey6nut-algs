@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 /** ===================================== Цепочка ответственности ============================== */
 
 abstract class Account {
@@ -345,7 +347,7 @@ class JobPostings implements Observable {
   protected observers: Observer[] = [];
 
   protected notify(jobPosting: JobPost) {
-    for (let observer of this.observers) {
+    for (const observer of this.observers) {
       observer.onJobPosted(jobPosting);
     }
   }
